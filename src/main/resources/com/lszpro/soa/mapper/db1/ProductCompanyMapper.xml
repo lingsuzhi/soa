@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.ProductCompanyDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.ProductCompanyBO">
+insert into uc_product_company(
+id,name,weight,sort,status,createTime,remark
+)values(
+#{id},#{name},#{weight},#{sort},#{status},#{createTime},#{remark} 
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.ProductCompanyBO">
+update  uc_product_company
+<set>
+<if test="name!=null">name=#{name},</if>
+<if test="weight!=null">weight=#{weight},</if>
+<if test="sort!=null">sort=#{sort},</if>
+<if test="status!=null">status=#{status},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="remark!=null">remark=#{remark},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from uc_product_company
+where id=#{id}
+</delete>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db2.TopicRoDao">
+	<select id="selectList" resultType="com.lszpro.soa.model.bo.TopicBO"
+		parameterType="java.util.Map">
+		SELECT
+		id,title,description,userid,sex,age,diseasescode,docname,answer,createTime
+		,        (select a.name from o2o_topic_diseases a where a.id=z.diseasescode) as diseasesName
+		from o2o_topic z
+		<where>
+			<if test="name!=null">
+				title=#{name}
+			</if>
+						<if test="diseasescode!=null">
+				and diseasescode=#{diseasescode}
+			</if>
+			
+		</where>
+		ORDER BY createTime DESC
+	</select>
+	<select id="selectById" resultType="com.lszpro.soa.model.bo.TopicBO"
+		parameterType="java.lang.String">
+		SELECT
+				id,title,description,userid,sex,age,diseasescode,docname,answer,createTime
+		,        (select a.name from o2o_topic_diseases a where a.id=z.diseasescode) as diseasesName
+		from o2o_topic z
+		where id=#{id}
+	</select>
+		 	
+</mapper>

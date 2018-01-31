@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.OrderSetDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.OrderSetBO">
+insert into o2o_order_set(
+id,name,leftStr,title,orderfile,adds,createTime,remake
+)values(
+#{id},#{name},#{leftStr},#{title},#{orderfile},#{adds},#{createTime},#{remake} 
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.OrderSetBO">
+update  o2o_order_set
+<set>
+<if test="name!=null">name=#{name},</if>
+<if test="leftStr!=null">leftStr=#{leftStr},</if>
+<if test="title!=null">title=#{title},</if>
+<if test="orderfile!=null">orderfile=#{orderfile},</if>
+<if test="adds!=null">adds=#{adds},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="remake!=null">remake=#{remake},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from o2o_order_set
+where id=#{id}
+</delete>
+</mapper>

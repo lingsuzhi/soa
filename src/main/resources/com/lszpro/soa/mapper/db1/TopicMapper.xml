@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.TopicDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.TopicBO">
+insert into o2o_topic(
+id,title,description,userid,sex,age,diseasescode,docname,answer,createTime
+)values(
+#{id},#{title},#{description},#{userid},#{sex},#{age},#{diseasescode},#{docname},#{answer},#{createTime} 
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.TopicBO">
+update  o2o_topic
+<set>
+<if test="id!=null">id=#{id},</if>
+<if test="title!=null">title=#{title},</if>
+<if test="description!=null">description=#{description},</if>
+<if test="userid!=null">userid=#{userid},</if>
+<if test="sex!=null">sex=#{sex},</if>
+<if test="age!=null">age=#{age},</if>
+<if test="diseasescode!=null">diseasescode=#{diseasescode},</if>
+<if test="docname!=null">docname=#{docname},</if>
+<if test="answer!=null">answer=#{answer},</if>
+<if test="createTime!=null">createTime=#{createTime},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from o2o_topic
+where id=#{id}
+</delete>
+</mapper>

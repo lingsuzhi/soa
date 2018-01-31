@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.OrderDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.OrderBO">
+insert into o2o_order(
+id,daydate,orderSetId,customerId,dayNumber,allNumber,zsl,zje,shishouje,dispatchId,dispatchNumber,userId,adminId,fuzeren,jingbanren,createTime,remake,zzz1,zzz2,discount,datas,danhao
+)values(
+#{id},#{daydate},#{orderSetId},#{customerId},#{dayNumber},#{allNumber},#{zsl},#{zje},#{shishouje},#{dispatchId},#{dispatchNumber},#{userId},#{adminId},#{fuzeren},#{jingbanren},#{createTime},#{remake},#{zzz1},#{zzz2},#{discount},#{datas} ,#{danhao}
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.OrderBO">
+update  o2o_order
+<set>
+
+    <if test="danhao!=null">danhao=#{danhao},</if>
+<if test="daydate!=null">daydate=#{daydate},</if>
+<if test="orderSetId!=null">orderSetId=#{orderSetId},</if>
+<if test="customerId!=null">customerId=#{customerId},</if>
+<if test="dayNumber!=null">dayNumber=#{dayNumber},</if>
+<if test="allNumber!=null">allNumber=#{allNumber},</if>
+<if test="zsl!=null">zsl=#{zsl},</if>
+<if test="zje!=null">zje=#{zje},</if>
+<if test="shishouje!=null">shishouje=#{shishouje},</if>
+<if test="dispatchId!=null">dispatchId=#{dispatchId},</if>
+<if test="dispatchNumber!=null">dispatchNumber=#{dispatchNumber},</if>
+<if test="userId!=null">userId=#{userId},</if>
+<if test="adminId!=null">adminId=#{adminId},</if>
+<if test="fuzeren!=null">fuzeren=#{fuzeren},</if>
+<if test="jingbanren!=null">jingbanren=#{jingbanren},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="remake!=null">remake=#{remake},</if>
+<if test="zzz1!=null">zzz1=#{zzz1},</if>
+<if test="zzz2!=null">zzz2=#{zzz2},</if>
+<if test="discount!=null">discount=#{discount},</if>
+<if test="datas!=null">datas=#{datas},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from o2o_order
+where id=#{id}
+</delete>
+    <delete id="deleteByDanhao" parameterType="java.lang.String">
+        delete from o2o_order
+        where danhao=#{danhao}
+    </delete>
+
+</mapper>

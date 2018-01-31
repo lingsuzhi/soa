@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.CustomerDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.CustomerBO">
+insert into uc_customer(
+id,name,description,image,typeId,level,phone,email,remake,createTime,status
+)values(
+#{id},#{name},#{description},#{image},#{typeId},#{level},#{phone},#{email},#{remake},#{createTime},#{status} 
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.CustomerBO">
+update  uc_customer
+<set>
+<if test="name!=null">name=#{name},</if>
+<if test="description!=null">description=#{description},</if>
+<if test="image!=null">image=#{image},</if>
+<if test="typeId!=null">typeId=#{typeId},</if>
+<if test="level!=null">level=#{level},</if>
+<if test="phone!=null">phone=#{phone},</if>
+<if test="email!=null">email=#{email},</if>
+<if test="remake!=null">remake=#{remake},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="status!=null">status=#{status},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from uc_customer
+where id=#{id}
+</delete>
+</mapper>

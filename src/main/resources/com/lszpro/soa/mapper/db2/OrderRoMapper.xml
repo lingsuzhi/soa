@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db2.OrderRoDao">
+	<select id="selectList" resultType="com.lszpro.soa.model.bo.OrderBO"
+		parameterType="java.util.Map">
+		SELECT
+		id,daydate,orderSetId,customerId,dayNumber,allNumber,zsl,zje,shishouje,dispatchId,dispatchNumber,userId,adminId,fuzeren,jingbanren,createTime,remake,zzz1,zzz2,discount,datas,danhao
+		,(select a.name from o2o_order_set a where a.id=z.orderSetId) as orderSetName
+		,(select a.name from uc_customer a where a.id=z.customerId) as customerName
+		from o2o_order z
+		<where>
+			<if test="name!=null and name!=''">
+				name=#{name}
+			</if>
+			<if test="danhao!=null and danhao!=''">
+				and danhao=#{danhao}
+			</if>
+		</where>
+		ORDER BY createTime DESC
+	</select>
+	<select id="selectById" resultType="com.lszpro.soa.model.bo.OrderBO"
+		parameterType="java.lang.String">
+		SELECT
+		id,daydate,orderSetId,customerId,dayNumber,allNumber,zsl,zje,shishouje,dispatchId,dispatchNumber,userId,adminId,fuzeren,jingbanren,createTime,remake,zzz1,zzz2,discount,datas,danhao
+		,(select a.name from o2o_order_set a where a.id=z.orderSetId) as orderSetName
+		,(select a.name from uc_customer a where a.id=z.customerId) as customerName
+		from o2o_order z
+		where id=#{id}
+	</select>
+	<select id="selectByDanhao" resultType="com.lszpro.soa.model.bo.OrderBO"
+			parameterType="java.lang.String">
+		SELECT
+		id,daydate,orderSetId,customerId,dayNumber,allNumber,zsl,zje,shishouje,dispatchId,dispatchNumber,userId,adminId,fuzeren,jingbanren,createTime,remake,zzz1,zzz2,discount,datas,danhao
+		,(select a.name from o2o_order_set a where a.id=z.orderSetId) as orderSetName
+		,(select a.name from uc_customer a where a.id=z.customerId) as customerName
+		from o2o_order z
+		where danhao=#{danhao}
+	</select>
+		 	<!--获取最后一天最后一单-->
+
+	<select id="selectDayEnd" resultType="com.lszpro.soa.model.bo.OrderBO"
+			parameterType="java.lang.String">
+		SELECT
+		id,daydate,orderSetId,customerId,dayNumber,allNumber,zsl,zje,shishouje,dispatchId,dispatchNumber,userId,adminId,fuzeren,jingbanren,createTime,remake,zzz1,zzz2,discount,datas,danhao
+		,danhao
+				,(select a.name from uc_customer a where a.id=z.customerId) as customerName
+		from o2o_order z
+		where orderSetId=#{orderSetId}
+		 order by daydate desc,dayNumber desc
+limit 1
+	</select>
+	<select id="maxDayNumber" 	parameterType="java.util.Map" resultType="java.lang.Integer">
+SELECT max(dayNumber)  FROM o2o_order
+where orderSetId=#{orderSetId} and daydate=#{daydate}
+	</select>
+	<select id="selectAllId" resultType="java.lang.String"
+			parameterType="java.lang.String">
+		SELECT
+		id
+		from o2o_order z
+		where orderSetId=#{orderSetId}
+		order by daydate desc,dayNumber desc
+
+	</select>
+</mapper>

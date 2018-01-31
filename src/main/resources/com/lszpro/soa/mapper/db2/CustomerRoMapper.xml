@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db2.CustomerRoDao">
+	<select id="selectList" resultType="com.lszpro.soa.model.bo.CustomerBO"
+		parameterType="java.util.Map">
+		select * from (
+		SELECT
+		id,name,description,image,typeId,level,phone,email,remake,createTime,status
+		,(select a.name from uc_customer_type a where a.id=z.typeId) as typeName
+		,(select a.parentId from uc_customer_type a where a.id=z.typeId) as typeParentId
+		from uc_customer z)zz
+		<where>
+			<if test="name!=null and name!=''">
+				name like  CONCAT('%',#{name},'%')
+			</if>
+			<if test="typeId!=null and typeId!=''">
+				and typeId=#{typeId} or  typeParentId =#{typeId}
+			</if>
+			<if test="number!=null and number!=''">
+				and number like  CONCAT('%',#{number},'%')
+			</if>
+		</where>
+		ORDER BY createTime DESC
+	</select>
+	<select id="selectById" resultType="com.lszpro.soa.model.bo.CustomerBO"
+		parameterType="java.lang.String">
+		SELECT
+			 id,name,description,image,typeId,level,phone,email,remake,createTime,status
+		,(select a.name from uc_customer_type a where a.id=z.typeId) as typeName
+		from uc_customer z
+		where id=#{id}
+	</select>
+		 	
+</mapper>

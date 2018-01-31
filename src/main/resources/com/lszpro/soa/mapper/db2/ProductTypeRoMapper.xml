@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db2.ProductTypeRoDao">
+	<select id="selectList" resultType="com.lszpro.soa.model.bo.ProductTypeBO"
+		parameterType="java.util.Map">
+		SELECT
+		id,name,parentId,type,icon,sort,status,createTime,remark
+		,(select a.name from uc_product_type a where a.id=z.parentId) as parentName
+		from uc_product_type z
+		<where>
+			<if test="name!=null and name!=''">
+				name=#{name}
+			</if>
+			<if test="parentId!=null and parentId!=''">
+				and parentId=#{parentId}
+			</if>
+
+		</where>
+		ORDER BY createTime DESC
+	</select>
+	<select id="selectById" resultType="com.lszpro.soa.model.bo.ProductTypeBO"
+		parameterType="java.lang.String">
+		SELECT
+			 id,name,parentId,type,icon,sort,status,createTime,remark
+			 ,(select a.name from uc_product_type a where a.id=z.parentId) as parentName
+		from uc_product_type z
+		where id=#{id}
+	</select>
+		 	
+</mapper>

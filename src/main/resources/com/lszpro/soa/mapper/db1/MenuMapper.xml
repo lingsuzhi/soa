@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.MenuMapper">
+<insert id="insert" parameterType="com.lszpro.soa.other.Menu">
+insert into uc_menu(
+id,menuName,menuUrl,parentId,perms,type,icon,sort,status,createTime,remark
+)values(
+#{id},#{menuName},#{menuUrl},#{parentId},#{perms},#{type},#{icon},#{sort},#{status},#{createTime},#{remark})
+</insert>
+<update id="update" parameterType="com.lszpro.soa.other.Menu">
+update  uc_menu 
+<set>
+<if test="menuName!=null">menuName=#{menuName},</if>
+<if test="menuUrl!=null">menuUrl=#{menuUrl},</if>
+<if test="parentId!=null">parentId=#{parentId},</if>
+<if test="perms!=null">perms=#{perms},</if>
+<if test="type!=null">type=#{type},</if>
+<if test="icon!=null">icon=#{icon},</if>
+<if test="sort!=null">sort=#{sort},</if>
+<if test="status!=null">status=#{status},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="remark!=null">remark=#{remark},</if>
+</set>
+where id=#{id}
+</update>
+<delete id="delete" parameterType="java.lang.String">
+delete from uc_menu 
+where id=#{id}
+</delete>
+</mapper>

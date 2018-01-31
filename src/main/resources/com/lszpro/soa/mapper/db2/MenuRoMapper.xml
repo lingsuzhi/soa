@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db2.MenuRoMapper">
+    <select id="selectList" resultType="com.lszpro.soa.other.MenuBO" parameterType="java.util.Map">
+        SELECT id,menuName,menuUrl,parentId,perms,type,icon,sort,status,createTime,remark
+        ,(select a.menuName from uc_menu a where z.parentId = a.id)as parentName
+        from uc_menu z
+        <where>
+            <if test="parentId!=null">
+                parentId=#{parentId}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+        </where>
+        ORDER BY createTime DESC
+    </select>
+    <select id="selectOne" resultType="com.lszpro.soa.other.MenuBO" parameterType="java.lang.String">
+SELECT  id,menuName,menuUrl,parentId,perms,type,icon,sort,status,createTime,remark
+        ,(select a.menuName from uc_menu a where z.parentId = a.id)as parentName
+        from uc_menu z
+where id=#{id}
+</select>
+
+</mapper>

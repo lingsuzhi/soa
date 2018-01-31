@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lszpro.soa.mapper.db1.MessageFaceDao">
+<insert id="insert" parameterType="com.lszpro.soa.model.bo.MessageFaceBO">
+insert into o2o_message_face(
+id,name,userId,content,status,createTime,endTime,startTime
+)values(
+#{id},#{name},#{userId},#{content},#{status},#{createTime},#{endTime},#{startTime} 
+)
+</insert>
+<update id="updateById" parameterType="com.lszpro.soa.model.bo.MessageFaceBO">
+update  o2o_message_face
+<set>
+<if test="name!=null">name=#{name},</if>
+<if test="userId!=null">userId=#{userId},</if>
+<if test="content!=null">content=#{content},</if>
+<if test="status!=null">status=#{status},</if>
+<if test="createTime!=null">createTime=#{createTime},</if>
+<if test="endTime!=null">endTime=#{endTime},</if>
+<if test="startTime!=null">startTime=#{startTime},</if> 
+</set>
+where id=#{id}
+</update>
+<delete id="deleteById" parameterType="java.lang.String">
+delete from o2o_message_face
+where id=#{id}
+</delete>
+</mapper>
